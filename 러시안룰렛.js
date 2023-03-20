@@ -29,6 +29,19 @@ while(bullet!=0){
         bullet--;
     }
 }
+
+// starting 변수는 시작 index
+// 게이머가 생존했을 경우 starting값을 증가시킴
+// starting : 시작 인덱스(생존했을 경우 값을 증가시킴), gamer.length : 현재 남은 생존자 수
+// ex) starting 2, 남은 생존자 수가 4명일 경우, 총알 4발           2%4 = 3번째 인덱스 gamer[2]     {가, 나, 다, 라}   
+// 1. [다](생존) starting 3, 남은 생존자수 4, starting%남은 생존자 수  3%4 = 4번째 인덱스 gamer[3] {가, 나, 다, 라} 
+// 2. [라](피격) starting 3, 남은 생존자수 3, starting%남은 생존자 수  3%3 = 0번째 인덱스  gamer[0] {가, 나, 다}
+// 3. [가](피격) satrting 3, 남은 생존자수 2, starting%남은 생존자 수  3%2 = 1번째 인덱스  gamer[1] {나, 다}
+// 4. [다](생존) starting 4, 남은 생존자수 2, starting%남은 생존자 수  4%2 = 0번째 인덱스  gamer[0] {나, 다}
+// 5. [나](피격) starting 5, 남은 생존자수 1   ==> "단 한명만 살아남았습니다. 게임을 종료합니다"  {다}
+
+
+
 // 총알이 모두 소진되거나, 최후의 1명이 생존했을 경우 게임 종료합니다.
 alert(`총을 받았습니다. ${gamer[starting%gamer.length]}부터 시작합니다.`);
 outer :for(var i=0; i<gun.length; i++){
