@@ -1,0 +1,35 @@
+==================CSS=====================
+
+/* fall 클래스가 붙으면 떨어지는 애니메이션 */
+/* 애니메이션 10s 속성으로 만들자  */
+.fall{
+    animation: falling 10s linear forwards;
+}
+@keyframes falling {
+    from {
+        transform: translate(0, 0);
+    }
+    to {
+        opacity: 0.5;
+        transform: translate(0,800px);
+    }
+}
+
+
+==================JavaScript=====================
+
+// 랜덤으로 생성하는 함수!
+const randomCreate = () => {
+    let n = Math.floor(Math.random()*10)+1;
+    const $layer = document.querySelector(`.layer:nth-child(${n})`);
+    const $newLayer = document.createElement('div');
+    $newLayer.textContent = '바나나';
+    $newLayer.classList.add('fall');
+    $layer.appendChild($newLayer);
+    return $newLayer;
+};
+
+$layerArray.push(randomCreate());
+$layerArray.push(randomCreate());
+$layerArray.push(randomCreate());
+$layerArray.push(randomCreate());
