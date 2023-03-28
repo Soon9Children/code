@@ -1,23 +1,16 @@
 // DOM
 const $background = document.querySelector('.background > ul');
 // console.log(background);
-const $cat = document.getElementById('cat');
-// console.log($cat);
-const $fishes = document.querySelector('.fishes');
-// console.log($fishes);
-$fishChildren = [...$fishes.children];
-
 
 // Setting
 const GAME_COLS = 20; // 가로
 const GAME_ROWS = 9; // 세로
 
 let score = 0;
-let duration = 500;
 let tempMovingCat;
 let tempMovingFish;
-let x=0;
-let y=0;
+let x;
+let y;
 
 
 const BLOCKS = {
@@ -35,14 +28,14 @@ const BLOCKS = {
 
 // console.log(BLOCKS.fish[0][0].pop()      );
 
-// if (x===BLOCKS.fish[0][0][0] && y===BLOCKS.fish[0][0][1] ) {
-//     BLOCKS.fish[0][0].pop();
-// }
+if (x===BLOCKS.fish[0][0][0] && y===BLOCKS.fish[0][0][1] ) {
+    BLOCKS.fish[0][0].pop();
+}
 
 console.log(BLOCKS.fish);
 
 const movingCat = {
-    name: "냥냥이",
+    name: '냥냥이',
     type: 'cat',
     direction: 0,
     left: 0,
@@ -50,7 +43,7 @@ const movingCat = {
 }
 
 const movingFish = {
-    name: "물고기",
+    name: '물고기',
     type: 'fish',
     direction: 0,
     left: 0,
@@ -74,14 +67,14 @@ function init() {
 }
 
 function prependNewLine() {
-    const li = document.createElement('li');
-    const ul = document.createElement('ul');
+    const $li = document.createElement('li');
+    const $ul = document.createElement('ul');
     for (let j = 0; j < GAME_COLS; j++) {
-        const matrix = document.createElement('li');
-        ul.prepend(matrix);
+        const nemo = document.createElement('li');
+        $ul.prepend(nemo);
     }
-    li.prepend(ul);
-    $background.prepend(li);
+    $li.prepend($ul);
+    $background.prepend($li);
 }
 
 function drawCat() {
@@ -91,20 +84,20 @@ function drawCat() {
         left,
         top
     } = tempMovingCat;
-    const movingBlocks = document.querySelectorAll(".moving")
+    const movingBlocks = document.querySelectorAll('.moving')
     movingBlocks.forEach(moving => {
-        moving.classList.remove(type, "moving")
+        moving.classList.remove(type, 'moving')
     })
     BLOCKS[type][direction].forEach(block => {
-        const x = block[0] + left;
-        const y = block[1] + top;
+        x = block[0] + left;
+        y = block[1] + top;
         // console.log({$background});
         
         // 범위 넘어가면 null
-        const target = $background.childNodes[y] ? $background.childNodes[y].childNodes[0].childNodes[x] : null;
+        const target = $background.children[y] ? $background.children[y].children[0].children[x] : null;
         const isAvailable = checkEmpty(target);
         if (isAvailable) {
-            target.classList.add(type, "moving");
+            target.classList.add(type, 'moving');
         } else {
             tempMovingCat = {
                 ...movingCat
@@ -119,6 +112,7 @@ function drawCat() {
         console.log(BLOCKS.fish[0][0][0], BLOCKS.fish[0][0][1]);
         if (x===BLOCKS.fish[0][0][0] && y===BLOCKS.fish[0][0][1] ) {
             BLOCKS.fish[0][0].pop();
+
         }    
     })
     movingCat.left = left;
@@ -136,38 +130,16 @@ function drawFish() {
     const {
         type,
         direction,
-        left,
-        top,
     } = tempMovingFish;
     BLOCKS[type][direction].forEach(block => {
-        x = block[0] + left;
-        y = block[1] + top;
+        x = block[0];
+        y = block[1];
 
-        const target = $background.childNodes[y] ? $background.childNodes[y].childNodes[0].childNodes[x] : null;
-        const isAvailable = checkEmpty(target);
-        if (isAvailable) {
-            target.classList.add(type, "moving");
-        } else {
-            tempMovingFish = {
-                ...movingFish
-            }
-            setTimeout(() => {
-                drawFish();
-            }, 0)
-        }
+        const target = $background.children[y] ? $background.children[y].children[0].children[x] : null;
+        target.classList.add(type);
+        
     })
 }
-
-
-
-
-function checkEmpty(target) {
-    if (!target) {
-        return false;
-    }
-    return true;
-}
-
 
 
 
@@ -177,32 +149,22 @@ function checkEmpty(target) {
 document.addEventListener('keydown', e => {
     switch (e.keyCode) {
         case 39:
-            moveBlock("left", 1);
+            moveBlock('left', 1);
             break;
         case 37:
-            moveBlock("left", -1);
+            moveBlock('left', -1);
             break;
         case 38:
-            moveBlock("top", -1);
+            moveBlock('top', -1);
             break;
         case 40:
-            moveBlock("top", 1);
+            moveBlock('top', 1);
             break;
         default:
             break;
     }
     // console.log(e);
 })
-
-
-
-
-// 물고기 생성
-// function createFish() {
-//     const ul = document.createElement('ul');
-// }
-
-
 
 
 
