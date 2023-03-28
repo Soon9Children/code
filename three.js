@@ -144,6 +144,13 @@ function drawFish() {
 
 
 
+function checkEmpty(target) {
+    if (!target) {
+        return false;
+    }
+    return true;
+}
+
 
 // 이벤트 핸들링
 document.addEventListener('keydown', e => {
