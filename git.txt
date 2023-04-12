@@ -1,2 +1,5 @@
 인텔리제이 워크스페이스가 짜증나게 할때!
 git rm —cached -r .idea/
+
+
+ System.out.printf("%-4d%-30s%-8s%10s%5d\n", vo.getNum(), title(vo.getTitle()), vo.getWriter(), vo.getDate(), vo.getLike());
